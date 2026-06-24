@@ -318,14 +318,31 @@
       z-index: 20;
       white-space: normal;
     }
+    .primary-action {
+      color: var(--blue);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      margin-right: 10px;
+      white-space: nowrap;
+    }
+    .remark-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+    }
     .more-wrap {
       position: relative;
       display: inline-block;
+      vertical-align: middle;
     }
     .more-btn {
       color: var(--blue);
       font-weight: 500;
       cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
     }
     .more-menu {
       position: absolute;
@@ -702,7 +719,7 @@
         </div>
 
         <div class="section-title">分配明细</div>
-        <div class="tip" id="interactionTip">点击“编辑 / 明细 / 轮动 / 规则”可查看交互反馈；点击开关、复选框、查询条件可模拟操作。</div>
+        <div class="tip" id="interactionTip">“编辑”为常用操作直接展示；“明细 / 轮动 / 规则 / 解绑”等个性化能力收纳在“更多”中。备注说明列可点击查看该条记录对应的业务功能点与联动说明。</div>
         <div class="table-wrap">
           <table>
             <colgroup>
@@ -737,7 +754,7 @@
                 <th>姓名</th>
                 <th>工号</th>
                 <th>岗位类型<span class="th-help">?<span class="th-help-pop">区分总店长、店长、店助、员工，不同岗位看到和维护的指标口径不同。</span></span></th>
-                <th>主归属<span class="th-help">?<span class="th-help-pop">标识该人员当前期间的主统计归属；跨柜组和轮动场景下会联动切换。</span></span></th>
+                <th>主归属<span class="th-help">?<span class="th-help-pop">标识该人员当前期间的主统计归属。影响个人指标归口统计、负责人汇总口径、轮动场景下的主次记录展示；同一期间通常仅保留 1 条主归属为“是”。</span></span></th>
                 <th>工作模式<span class="th-help">?<span class="th-help-pop">区分固定、跨柜组、多店轮动，并影响备注说明和轮动信息的维护方式。</span></span></th>
                 <th>分配方式</th>
                 <th>分配比例</th>
@@ -771,8 +788,8 @@
                 <td>李晓楠</td>
                 <td>系统管理员</td>
                 <td>2026-06-24 19:55</td>
-                <td class="multi-line">团队管理口径</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</div><div class="more-item" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="张莉莉" data-role="总店长" data-group="72222201">团队管理口径</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -793,8 +810,8 @@
                 <td>张莉莉</td>
                 <td>张莉莉</td>
                 <td>2026-06-24 20:02</td>
-                <td class="multi-line">与72222301联动分摊</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</div><div class="more-item" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="马大为" data-role="店长" data-group="72221501">与72222301联动分摊</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -815,8 +832,8 @@
                 <td>张莉莉</td>
                 <td>张莉莉</td>
                 <td>2026-06-24 20:03</td>
-                <td class="multi-line">跨柜组销售支持统计</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</div><div class="more-item" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="马大为" data-role="店长" data-group="72222301">跨柜组销售支持统计</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -837,8 +854,8 @@
                 <td>翟金侠</td>
                 <td>翟金侠</td>
                 <td>2026-06-24 20:05</td>
-                <td class="multi-line">个人销售指标</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</div><div class="more-item" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="宋磊" data-role="员工" data-group="72221901">个人销售指标</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -859,8 +876,8 @@
                 <td>翟金侠</td>
                 <td>翟金侠</td>
                 <td>2026-06-24 20:08</td>
-                <td class="multi-line">与72223001按半月轮动</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</div><div class="more-item" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="仇方亮" data-role="店助" data-group="72222701">与72223001按半月轮动</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -881,8 +898,8 @@
                 <td>翟金侠</td>
                 <td>翟金侠</td>
                 <td>2026-06-24 20:12</td>
-                <td class="multi-line">主归属切换至后半月</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</div><div class="more-item" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="仇方亮" data-role="店助" data-group="72223001">主归属切换至后半月</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -903,8 +920,8 @@
                 <td>张莉莉</td>
                 <td>张莉莉</td>
                 <td>2026-06-24 20:15</td>
-                <td class="multi-line">入境综合按品类分工</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</div><div class="more-item" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="刘丽娜" data-role="店长" data-group="72225101">入境综合按品类分工</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</div></div></div></td>
               </tr>
               <tr>
                 <td class="sticky-first"><span class="checkbox"></span></td>
@@ -925,8 +942,8 @@
                 <td>张盼</td>
                 <td>张盼</td>
                 <td>2026-06-24 20:18</td>
-                <td class="multi-line">收银件数/笔数另计</td>
-                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</div><div class="more-item" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</div></div></div></td>
+                <td><a class="remark-link" href="#" data-action="remark" data-name="毛飞" data-role="员工" data-group="72220001">收银件数/笔数另计</a></td>
+                <td><a class="primary-action" href="#" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</div></div></div></td>
               </tr>
             </tbody>
           </table>
@@ -1033,6 +1050,7 @@
         add: '新增指标分配',
         edit: '编辑指标分配',
         detail: '查看分配明细',
+        remark: '查看备注说明',
         rotation: '查看轮动安排',
         rule: '查看收银规则',
         import: '批量导入',
@@ -1044,7 +1062,8 @@
       const notes = {
         add: '用于新增门店/店面/柜组到个人的分配记录，支持主归属、轮动、多柜组分摊。',
         edit: '用于调整个人销售指标、分配比例和生效周期。',
-        detail: '用于查看当前人员在本期间下的全部分配口径、历史修改记录与关联柜组。',
+        detail: '用于查看当前人员在本期间下的全部分配口径、历史修改记录与关联柜组。该窗口为只读示例，不提供编辑。',
+        remark: '用于展示该条记录对应的业务功能点、统计口径和与主归属/轮动/分摊的联动关系。',
         rotation: '用于展示跨柜组或多店轮动明细，包括前后半月、轮动比例和主归属切换。',
         rule: '用于维护收银件数/笔数等非销售额口径规则。',
         import: '用于上传 Excel 模板并批量导入人员归属和指标分配数据。',
@@ -1054,16 +1073,17 @@
         unbind: '用于解除人员与柜组的当前归属关系。'
       };
       const presets = {
-        add: { mode: '按金额', ratio: '100%', target: '0', remark: '新增分配记录，请补充指标值与归属说明。', updater: '系统管理员' },
-        edit: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为编辑模式，可直接修改并保存。', updater: '系统管理员' },
-        detail: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为只读明细示意，可查看历史口径和关联关系。', updater: '系统自动' },
-        rotation: { mode: '按比例', ratio: '50%', target: '46000', remark: '轮动安排：前后半月轮岗，主归属可切换。', updater: '翟金侠' },
-        rule: { mode: '按金额', ratio: '100%', target: '0', remark: '收银岗位规则：件数/笔数单独统计，不直接分摊销售额。', updater: '张盼' },
-        import: { mode: '按金额', ratio: '100%', target: '0', remark: '请上传模板文件并映射字段。', updater: '系统管理员' },
-        share: { mode: '按比例', ratio: '50%', target: '0', remark: '按柜组目标自动分摊到个人，并校验比例合计 100%。', updater: '系统管理员' },
-        copy: { mode: '按金额', ratio: '100%', target: '0', remark: '已复制上月配置，可按本月实际调整。', updater: '系统管理员' },
-        disable: { mode: '按金额', ratio: '100%', target: '0', remark: '批量失效后保留历史记录，不参与当前期间统计。', updater: '系统管理员' },
-        unbind: { mode: '按金额', ratio: '100%', target: '58000', remark: '解除归属后，该员工将不再挂接当前柜组。', updater: '翟金侠' }
+        add: { mode: '按金额', ratio: '100%', target: '0', remark: '新增分配记录，请补充指标值与归属说明。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        edit: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为编辑模式，可直接修改并保存。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        detail: { mode: '按比例', ratio: '50%', target: '46000', remark: '只读示例：同一人员在 7 月前后半月分别挂接两个柜组，当前记录为后半月主归属；汇总统计计入当前主柜组。', updater: '翟金侠', start: '2026-07-16', end: '2026-07-31', primary: '是' },
+        remark: { mode: '按比例', ratio: '50%', target: '46000', remark: '功能点示例：1. 该员工与 72222701/72223001 存在半月轮动；2. 前半月主归属在 72222701，后半月切换至当前柜组；3. 汇总时仅主归属记录计入个人主统计口径，另一条作为关联支持记录保留。', updater: '翟金侠', start: '2026-07-16', end: '2026-07-31', primary: '是' },
+        rotation: { mode: '按比例', ratio: '50%', target: '46000', remark: '轮动安排：前后半月轮岗，主归属可切换。', updater: '翟金侠', start: '2026-07-01', end: '2026-07-15', primary: '否' },
+        rule: { mode: '按金额', ratio: '100%', target: '0', remark: '收银岗位规则：件数/笔数单独统计，不直接分摊销售额。', updater: '张盼', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        import: { mode: '按金额', ratio: '100%', target: '0', remark: '请上传模板文件并映射字段。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        share: { mode: '按比例', ratio: '50%', target: '0', remark: '按柜组目标自动分摊到个人，并校验比例合计 100%。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        copy: { mode: '按金额', ratio: '100%', target: '0', remark: '已复制上月配置，可按本月实际调整。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        disable: { mode: '按金额', ratio: '100%', target: '0', remark: '批量失效后保留历史记录，不参与当前期间统计。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        unbind: { mode: '按金额', ratio: '100%', target: '58000', remark: '解除归属后，该员工将不再挂接当前柜组。', updater: '翟金侠', start: '2026-07-01', end: '2026-07-31', primary: '否' }
       };
       const preset = presets[type] || presets.edit;
       modalTitle.textContent = titles[type] || '交互示意';
@@ -1073,13 +1093,13 @@
       modalMode.value = preset.mode;
       modalRatio.value = preset.ratio;
       modalTarget.value = preset.target;
-      modalStart.value = '2026-07-01';
-      modalEnd.value = '2026-07-31';
-      modalPrimary.value = type === 'rotation' || type === 'unbind' ? '否' : '是';
+      modalStart.value = preset.start || '2026-07-01';
+      modalEnd.value = preset.end || '2026-07-31';
+      modalPrimary.value = preset.primary || '是';
       modalUpdater.value = preset.updater;
       modalRemark.value = preset.remark;
       modalNote.textContent = notes[type] || '此处为高保真交互示意。';
-      const readonly = type === 'detail';
+      const readonly = type === 'detail' || type === 'remark';
       [modalName, modalRole, modalGroup, modalMode, modalRatio, modalTarget, modalStart, modalEnd, modalPrimary, modalUpdater, modalRemark].forEach(node => {
         node.disabled = readonly;
         node.style.background = readonly ? '#f5f7fa' : '#fff';
@@ -1186,6 +1206,13 @@
         event.stopPropagation();
         closeMoreMenus();
         openModal(item.dataset.action, item.dataset.name, item.dataset.role, item.dataset.group);
+      });
+    });
+
+    document.querySelectorAll('.primary-action[data-action], .remark-link[data-action]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        openModal(link.dataset.action, link.dataset.name, link.dataset.role, link.dataset.group);
       });
     });
 
