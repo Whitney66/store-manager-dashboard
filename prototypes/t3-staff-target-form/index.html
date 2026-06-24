@@ -253,6 +253,9 @@
       border-bottom: 1px solid var(--line-dark);
       text-align: center;
       padding: 0 8px;
+      position: sticky;
+      top: 0;
+      z-index: 3;
     }
     tbody td {
       height: 62px;
@@ -265,6 +268,91 @@
       line-height: 1.5;
       vertical-align: middle;
       background: #fff;
+    }
+    th.sticky-first,
+    td.sticky-first {
+      position: sticky;
+      left: 0;
+      z-index: 4;
+      background: #fff;
+      box-shadow: 1px 0 0 var(--line-dark);
+    }
+    thead th.sticky-first {
+      background: #f7f9fc;
+      z-index: 6;
+    }
+    .th-help {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+      border-radius: 50%;
+      border: 1px solid #b6c2cd;
+      color: #7c8a99;
+      font-size: 11px;
+      vertical-align: middle;
+      cursor: pointer;
+      position: relative;
+    }
+    .th-help:hover .th-help-pop,
+    .th-help.active .th-help-pop {
+      display: block;
+    }
+    .th-help-pop {
+      display: none;
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      padding: 10px 12px;
+      background: rgba(31, 45, 61, 0.96);
+      color: #fff;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.7;
+      box-shadow: 0 10px 24px rgba(15, 34, 58, 0.18);
+      z-index: 20;
+      white-space: normal;
+    }
+    .more-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .more-btn {
+      color: var(--blue);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .more-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 108px;
+      background: #fff;
+      border: 1px solid var(--line-dark);
+      border-radius: 8px;
+      box-shadow: 0 10px 26px rgba(15, 34, 58, 0.12);
+      padding: 6px 0;
+      display: none;
+      z-index: 9;
+    }
+    .more-menu.show {
+      display: block;
+    }
+    .more-item {
+      padding: 9px 14px;
+      color: var(--blue);
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .more-item:hover {
+      background: #f2f7ff;
     }
     tbody tr:nth-child(even) td {
       background: #fcfdff;
@@ -599,15 +687,7 @@
               <div class="btn default clickable" data-action="reset">重置</div>
             </div>
           </div>
-          <div class="field-help">
-            <strong>字段说明：</strong><br>
-            1. <strong>期间</strong>：决定本次指标分配生效月份，联动刷新门店、店面、柜组的可选范围。<br>
-            2. <strong>门店</strong>：分配主体范围，联动团队、店面、柜组；为必填。<br>
-            3. <strong>团队/店面/柜组</strong>：按组织层级逐级收敛，可用于查看某一层级下的分配记录。<br>
-            4. <strong>姓名/工号</strong>：用于精确检索个人分配结果；与岗位类型、工作模式组合筛选。<br>
-            5. <strong>工作模式</strong>：区分固定、跨柜组、多店轮动，联动影响“主归属”“轮动说明”等表格字段展示。<br>
-            6. <strong>岗位类型</strong>：联动限制可维护的分配方式，例如管理岗可看团队指标，员工侧重个人指标。
-          </div>
+          <div class="tip">字段说明已收口到表头与筛选项旁的 <strong>?</strong> 气泡，便于按需查看字段作用及联动关系。</div>
         </div>
 
         <div class="toolbar">
@@ -649,16 +729,16 @@
             </colgroup>
             <thead>
               <tr>
-                <th><span class="checkbox-h"></span></th>
-                <th>期间</th>
-                <th>门店</th>
-                <th>店面</th>
-                <th>柜组</th>
+                <th class="sticky-first"><span class="checkbox-h"></span></th>
+                <th>期间<span class="th-help">?<span class="th-help-pop">决定本次指标分配生效月份，并联动刷新门店、店面、柜组等可选范围。</span></span></th>
+                <th>门店<span class="th-help">?<span class="th-help-pop">分配主体范围，为必填项；变更后联动团队、店面、柜组候选值。</span></span></th>
+                <th>店面<span class="th-help">?<span class="th-help-pop">门店下的经营层级，用于进一步收敛查看和维护范围。</span></span></th>
+                <th>柜组<span class="th-help">?<span class="th-help-pop">最细分配单元；跨柜组或轮动场景会关联多条记录共同维护。</span></span></th>
                 <th>姓名</th>
                 <th>工号</th>
-                <th>岗位类型</th>
-                <th>主归属</th>
-                <th>工作模式</th>
+                <th>岗位类型<span class="th-help">?<span class="th-help-pop">区分总店长、店长、店助、员工，不同岗位看到和维护的指标口径不同。</span></span></th>
+                <th>主归属<span class="th-help">?<span class="th-help-pop">标识该人员当前期间的主统计归属；跨柜组和轮动场景下会联动切换。</span></span></th>
+                <th>工作模式<span class="th-help">?<span class="th-help-pop">区分固定、跨柜组、多店轮动，并影响备注说明和轮动信息的维护方式。</span></span></th>
                 <th>分配方式</th>
                 <th>分配比例</th>
                 <th>指标值(元)</th>
@@ -673,7 +753,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td class="multi-line">首都T3门店7222</td>
                 <td>T3香化</td>
@@ -692,10 +772,10 @@
                 <td>系统管理员</td>
                 <td>2026-06-24 19:55</td>
                 <td class="multi-line">团队管理口径</td>
-                <td><a class="link" href="#" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</a><a class="link" href="#" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</div><div class="more-item" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3烟酒</td>
@@ -714,10 +794,10 @@
                 <td>张莉莉</td>
                 <td>2026-06-24 20:02</td>
                 <td class="multi-line">与72222301联动分摊</td>
-                <td><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</a><a class="link" href="#" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</div><div class="more-item" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3烟酒</td>
@@ -736,10 +816,10 @@
                 <td>张莉莉</td>
                 <td>2026-06-24 20:03</td>
                 <td class="multi-line">跨柜组销售支持统计</td>
-                <td><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</a><a class="link" href="#" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</div><div class="more-item" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3精品综合</td>
@@ -758,10 +838,10 @@
                 <td>翟金侠</td>
                 <td>2026-06-24 20:05</td>
                 <td class="multi-line">个人销售指标</td>
-                <td><a class="link" href="#" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</a><a class="link" href="#" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</div><div class="more-item" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3精品综合</td>
@@ -780,10 +860,10 @@
                 <td>翟金侠</td>
                 <td>2026-06-24 20:08</td>
                 <td class="multi-line">与72223001按半月轮动</td>
-                <td><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</a><a class="link" href="#" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</div><div class="more-item" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3精品综合</td>
@@ -802,10 +882,10 @@
                 <td>翟金侠</td>
                 <td>2026-06-24 20:12</td>
                 <td class="multi-line">主归属切换至后半月</td>
-                <td><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</a><a class="link" href="#" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</div><div class="more-item" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3入境</td>
@@ -824,10 +904,10 @@
                 <td>张莉莉</td>
                 <td>2026-06-24 20:15</td>
                 <td class="multi-line">入境综合按品类分工</td>
-                <td><a class="link" href="#" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</a><a class="link" href="#" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</div><div class="more-item" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</div></div></div></td>
               </tr>
               <tr>
-                <td><span class="checkbox"></span></td>
+                <td class="sticky-first"><span class="checkbox"></span></td>
                 <td>2026-07</td>
                 <td>首都T3门店7222</td>
                 <td>T3收银</td>
@@ -846,7 +926,7 @@
                 <td>张盼</td>
                 <td>2026-06-24 20:18</td>
                 <td class="multi-line">收银件数/笔数另计</td>
-                <td><a class="link" href="#" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</a><a class="link" href="#" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</a></td>
+                <td><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</div><div class="more-item" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</div></div></div></td>
               </tr>
             </tbody>
           </table>
@@ -1056,6 +1136,10 @@
 
     document.addEventListener('click', event => {
       if (!event.target.closest('.field')) closeDropdowns();
+      if (!event.target.closest('.more-wrap')) closeMoreMenus();
+      if (!event.target.closest('.th-help')) {
+        document.querySelectorAll('.th-help.active').forEach(node => node.classList.remove('active'));
+      }
     });
 
     document.querySelectorAll('.btn.clickable').forEach(btn => {
@@ -1082,10 +1166,35 @@
       });
     });
 
-    document.querySelectorAll('.link[data-action]').forEach(link => {
-      link.addEventListener('click', event => {
+    function closeMoreMenus() {
+      document.querySelectorAll('.more-menu.show').forEach(menu => menu.classList.remove('show'));
+    }
+
+    document.querySelectorAll('.more-btn').forEach(button => {
+      button.addEventListener('click', event => {
         event.preventDefault();
-        openModal(link.dataset.action, link.dataset.name, link.dataset.role, link.dataset.group);
+        event.stopPropagation();
+        const menu = button.nextElementSibling;
+        const willOpen = !menu.classList.contains('show');
+        closeMoreMenus();
+        if (willOpen) menu.classList.add('show');
+      });
+    });
+
+    document.querySelectorAll('.more-item[data-action]').forEach(item => {
+      item.addEventListener('click', event => {
+        event.stopPropagation();
+        closeMoreMenus();
+        openModal(item.dataset.action, item.dataset.name, item.dataset.role, item.dataset.group);
+      });
+    });
+
+    document.querySelectorAll('.th-help').forEach(help => {
+      help.addEventListener('click', event => {
+        event.stopPropagation();
+        const willOpen = !help.classList.contains('active');
+        document.querySelectorAll('.th-help.active').forEach(node => node.classList.remove('active'));
+        if (willOpen) help.classList.add('active');
       });
     });
 
