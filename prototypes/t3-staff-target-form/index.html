@@ -616,7 +616,7 @@
         <div class="search-panel">
           <div class="search-grid">
             <div class="form-item">
-              <div class="label"><span class="required">*</span>期间</div>
+              <div class="label"><span class="required">*</span>月份</div>
               <div class="field clickable" data-dropdown="period"><strong>2026-07</strong><span class="picker-btn">⌄</span>
                 <div class="dropdown">
                   <div class="dropdown-item active">2026-07</div>
@@ -719,7 +719,7 @@
         </div>
 
         <div class="section-title">分配明细</div>
-        <div class="tip" id="interactionTip">“编辑”为常用操作直接展示；“明细 / 轮动 / 规则 / 解绑”等个性化能力收纳在“更多”中。备注说明列可点击查看该条记录对应的业务功能点与联动说明。</div>
+        <div class="tip" id="interactionTip">“编辑”为常用操作直接展示；“明细 / 轮动 / 规则 / 解绑”等场景化能力收纳在“更多”中。备注说明列支持查看该条记录的业务功能点、主归属口径和联动关系。</div>
         <div class="table-wrap">
           <table>
             <colgroup>
@@ -747,18 +747,18 @@
             <thead>
               <tr>
                 <th class="sticky-first"><span class="checkbox-h"></span></th>
-                <th>期间<span class="th-help">?<span class="th-help-pop">决定本次指标分配生效月份，并联动刷新门店、店面、柜组等可选范围。</span></span></th>
+                <th>月份<span class="th-help">?<span class="th-help-pop">决定本次指标分配生效月份，并联动刷新门店、店面、柜组等可选范围。</span></span></th>
                 <th>门店<span class="th-help">?<span class="th-help-pop">分配主体范围，为必填项；变更后联动团队、店面、柜组候选值。</span></span></th>
                 <th>店面<span class="th-help">?<span class="th-help-pop">门店下的经营层级，用于进一步收敛查看和维护范围。</span></span></th>
                 <th>柜组<span class="th-help">?<span class="th-help-pop">最细分配单元；跨柜组或轮动场景会关联多条记录共同维护。</span></span></th>
                 <th>姓名</th>
                 <th>工号</th>
                 <th>岗位类型<span class="th-help">?<span class="th-help-pop">区分总店长、店长、店助、员工，不同岗位看到和维护的指标口径不同。</span></span></th>
-                <th>主归属<span class="th-help">?<span class="th-help-pop">标识该人员当前期间的主统计归属。影响个人指标归口统计、负责人汇总口径、轮动场景下的主次记录展示；同一期间通常仅保留 1 条主归属为“是”。</span></span></th>
+                <th>主归属<span class="th-help">?<span class="th-help-pop">标识该人员当前月份的主统计归属。影响个人目标销售额归口统计、负责人汇总口径，以及轮动场景下主次记录的展示；同一月份通常仅保留 1 条主归属为“是”。</span></span></th>
                 <th>工作模式<span class="th-help">?<span class="th-help-pop">区分固定、跨柜组、多店轮动，并影响备注说明和轮动信息的维护方式。</span></span></th>
                 <th>分配方式</th>
                 <th>分配比例</th>
-                <th>指标值(元)</th>
+                <th>目标销售额（元）</th>
                 <th>生效时间</th>
                 <th>启用</th>
                 <th>上级管理人</th>
@@ -993,7 +993,7 @@
           </select>
           <div class="label">分配比例</div>
           <input class="modal-input" id="modalRatio" value="100%" />
-          <div class="label">指标值(元)</div>
+          <div class="label">目标销售额（元）</div>
           <input class="modal-input" id="modalTarget" value="320000" />
           <div class="label">生效开始</div>
           <input class="modal-input" id="modalStart" value="2026-07-01" />
@@ -1062,7 +1062,7 @@
       const notes = {
         add: '用于新增门店/店面/柜组到个人的分配记录，支持主归属、轮动、多柜组分摊。',
         edit: '用于调整个人销售指标、分配比例和生效周期。',
-        detail: '用于查看当前人员在本期间下的全部分配口径、历史修改记录与关联柜组。该窗口为只读示例，不提供编辑。',
+        detail: '用于查看当前人员在本月份下的全部分配口径、历史修改记录与关联柜组。该窗口为只读示例，不提供编辑。',
         remark: '用于展示该条记录对应的业务功能点、统计口径和与主归属/轮动/分摊的联动关系。',
         rotation: '用于展示跨柜组或多店轮动明细，包括前后半月、轮动比例和主归属切换。',
         rule: '用于维护收银件数/笔数等非销售额口径规则。',
@@ -1082,7 +1082,7 @@
         import: { mode: '按金额', ratio: '100%', target: '0', remark: '请上传模板文件并映射字段。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         share: { mode: '按比例', ratio: '50%', target: '0', remark: '按柜组目标自动分摊到个人，并校验比例合计 100%。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         copy: { mode: '按金额', ratio: '100%', target: '0', remark: '已复制上月配置，可按本月实际调整。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
-        disable: { mode: '按金额', ratio: '100%', target: '0', remark: '批量失效后保留历史记录，不参与当前期间统计。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
+        disable: { mode: '按金额', ratio: '100%', target: '0', remark: '批量失效后保留历史记录，不参与当前月份统计。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         unbind: { mode: '按金额', ratio: '100%', target: '58000', remark: '解除归属后，该员工将不再挂接当前柜组。', updater: '翟金侠', start: '2026-07-01', end: '2026-07-31', primary: '否' }
       };
       const preset = presets[type] || presets.edit;
