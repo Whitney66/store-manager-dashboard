@@ -69,13 +69,16 @@
     }
     .search-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 14px 18px;
       align-items: start;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .form-item {
       min-width: 0;
+    }
+    .form-item.span-2 {
+      grid-column: span 2;
     }
     .label {
       display: flex;
@@ -166,9 +169,10 @@
     .actions {
       display: flex;
       gap: 10px;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: flex-end;
       margin-top: 30px;
+      white-space: nowrap;
     }
     .btn {
       min-width: 96px;
@@ -216,14 +220,26 @@
     .tip.required-tip {
       color: #d4380d;
     }
+    .field-help {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1px dashed #d8e4f0;
+      border-radius: 8px;
+      color: #4f5d6b;
+      font-size: 13px;
+      line-height: 1.8;
+    }
     .table-wrap {
       border: 1px solid var(--line-dark);
       border-radius: 6px;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       background: #fff;
     }
     table {
       width: 100%;
+      min-width: 2300px;
       border-collapse: collapse;
       table-layout: fixed;
     }
@@ -395,6 +411,30 @@
       gap: 14px 16px;
       align-items: center;
     }
+    .modal-input,
+    .modal-select,
+    .modal-textarea {
+      width: 100%;
+      border: 1px solid var(--line-dark);
+      border-radius: 6px;
+      background: #fff;
+      color: #222;
+      font-size: 14px;
+      padding: 10px 12px;
+      outline: 0;
+    }
+    .modal-textarea {
+      min-height: 84px;
+      resize: vertical;
+      grid-column: span 3;
+    }
+    .modal-grid .full-row {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
     .modal-footer {
       padding: 16px 22px 22px;
       display: flex;
@@ -503,10 +543,6 @@
                 </div>
               </div>
             </div>
-            <div class="actions">
-              <div class="btn primary clickable" data-action="search">查询</div>
-              <div class="btn default clickable" data-action="reset">重置</div>
-            </div>
             <div class="form-item">
               <div class="label">店面</div>
               <div class="field clickable" data-dropdown="shop"><strong>全部店面</strong><span class="picker-btn">⌄</span>
@@ -531,7 +567,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-item">
+            <div class="form-item span-2">
               <div class="label">姓名/工号</div>
               <div class="field placeholder"><input value="" placeholder="请输入姓名或工号" /></div>
             </div>
@@ -546,6 +582,31 @@
                 </div>
               </div>
             </div>
+            <div class="form-item">
+              <div class="label">岗位类型</div>
+              <div class="field clickable" data-dropdown="role"><strong>全部</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">全部</div>
+                  <div class="dropdown-item">总店长</div>
+                  <div class="dropdown-item">店长</div>
+                  <div class="dropdown-item">店助</div>
+                  <div class="dropdown-item">员工</div>
+                </div>
+              </div>
+            </div>
+            <div class="actions">
+              <div class="btn primary clickable" data-action="search">查询</div>
+              <div class="btn default clickable" data-action="reset">重置</div>
+            </div>
+          </div>
+          <div class="field-help">
+            <strong>字段说明：</strong><br>
+            1. <strong>期间</strong>：决定本次指标分配生效月份，联动刷新门店、店面、柜组的可选范围。<br>
+            2. <strong>门店</strong>：分配主体范围，联动团队、店面、柜组；为必填。<br>
+            3. <strong>团队/店面/柜组</strong>：按组织层级逐级收敛，可用于查看某一层级下的分配记录。<br>
+            4. <strong>姓名/工号</strong>：用于精确检索个人分配结果；与岗位类型、工作模式组合筛选。<br>
+            5. <strong>工作模式</strong>：区分固定、跨柜组、多店轮动，联动影响“主归属”“轮动说明”等表格字段展示。<br>
+            6. <strong>岗位类型</strong>：联动限制可维护的分配方式，例如管理岗可看团队指标，员工侧重个人指标。
           </div>
         </div>
 
@@ -581,7 +642,10 @@
               <col style="width:120px">
               <col style="width:96px">
               <col style="width:130px">
-              <col style="width:250px">
+              <col style="width:120px">
+              <col style="width:160px">
+              <col style="width:220px">
+              <col style="width:260px">
             </colgroup>
             <thead>
               <tr>
@@ -601,7 +665,10 @@
                 <th>生效时间</th>
                 <th>启用</th>
                 <th>上级管理人</th>
-                <th>备注/操作</th>
+                <th>更新人员</th>
+                <th>更新时间</th>
+                <th>备注说明</th>
+                <th>操作</th>
               </tr>
             </thead>
             <tbody>
@@ -622,7 +689,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>李晓楠</td>
-                <td class="multi-line">团队管理口径<br><a class="link" href="#" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</a><a class="link" href="#" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</a></td>
+                <td>系统管理员</td>
+                <td>2026-06-24 19:55</td>
+                <td class="multi-line">团队管理口径</td>
+                <td><a class="link" href="#" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</a><a class="link" href="#" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -641,7 +711,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td class="multi-line">与72222301联动分摊<br><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</a><a class="link" href="#" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</a></td>
+                <td>张莉莉</td>
+                <td>2026-06-24 20:02</td>
+                <td class="multi-line">与72222301联动分摊</td>
+                <td><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</a><a class="link" href="#" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -660,7 +733,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td class="multi-line">跨柜组销售支持统计<br><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</a><a class="link" href="#" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</a></td>
+                <td>张莉莉</td>
+                <td>2026-06-24 20:03</td>
+                <td class="multi-line">跨柜组销售支持统计</td>
+                <td><a class="link" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</a><a class="link" href="#" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -679,7 +755,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td class="multi-line">个人销售指标<br><a class="link" href="#" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</a><a class="link" href="#" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</a></td>
+                <td>翟金侠</td>
+                <td>2026-06-24 20:05</td>
+                <td class="multi-line">个人销售指标</td>
+                <td><a class="link" href="#" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</a><a class="link" href="#" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -698,7 +777,10 @@
                 <td>2026-07-01<br>2026-07-15</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td class="multi-line">与72223001按半月轮动<br><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</a><a class="link" href="#" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</a></td>
+                <td>翟金侠</td>
+                <td>2026-06-24 20:08</td>
+                <td class="multi-line">与72223001按半月轮动</td>
+                <td><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</a><a class="link" href="#" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -717,7 +799,10 @@
                 <td>2026-07-16<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td class="multi-line">主归属切换至后半月<br><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</a><a class="link" href="#" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</a></td>
+                <td>翟金侠</td>
+                <td>2026-06-24 20:12</td>
+                <td class="multi-line">主归属切换至后半月</td>
+                <td><a class="link" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</a><a class="link" href="#" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -736,7 +821,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td class="multi-line">入境综合按品类分工<br><a class="link" href="#" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</a><a class="link" href="#" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</a></td>
+                <td>张莉莉</td>
+                <td>2026-06-24 20:15</td>
+                <td class="multi-line">入境综合按品类分工</td>
+                <td><a class="link" href="#" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</a><a class="link" href="#" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</a></td>
               </tr>
               <tr>
                 <td><span class="checkbox"></span></td>
@@ -755,7 +843,10 @@
                 <td>2026-07-01<br>2026-07-31</td>
                 <td><div class="switch on"></div></td>
                 <td>张盼</td>
-                <td class="multi-line">收银件数/笔数另计<br><a class="link" href="#" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</a><a class="link" href="#" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</a></td>
+                <td>张盼</td>
+                <td>2026-06-24 20:18</td>
+                <td class="multi-line">收银件数/笔数另计</td>
+                <td><a class="link" href="#" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</a><a class="link" href="#" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</a></td>
               </tr>
             </tbody>
           </table>
@@ -788,23 +879,42 @@
       <div class="modal-body">
         <div class="modal-grid">
           <div class="label">姓名</div>
-          <div class="field active"><strong id="modalName">张莉莉</strong></div>
+          <input class="modal-input" id="modalName" value="张莉莉" />
           <div class="label">岗位类型</div>
-          <div class="field"><strong id="modalRole">总店长</strong></div>
+          <select class="modal-select" id="modalRole">
+            <option>总店长</option>
+            <option>店长</option>
+            <option>店助</option>
+            <option>员工</option>
+          </select>
           <div class="label">柜组</div>
-          <div class="field"><strong id="modalGroup">72222201</strong></div>
+          <input class="modal-input" id="modalGroup" value="72222201" />
           <div class="label">分配方式</div>
-          <div class="field"><strong>按金额</strong><span class="picker-btn">⌄</span></div>
+          <select class="modal-select" id="modalMode">
+            <option>按金额</option>
+            <option>按比例</option>
+          </select>
           <div class="label">分配比例</div>
-          <div class="field"><strong>100%</strong></div>
+          <input class="modal-input" id="modalRatio" value="100%" />
           <div class="label">指标值(元)</div>
-          <div class="field"><strong>320,000</strong></div>
-          <div class="label">生效时间</div>
-          <div class="field"><strong>2026-07-01 至 2026-07-31</strong><span class="picker-btn">📅</span></div>
+          <input class="modal-input" id="modalTarget" value="320000" />
+          <div class="label">生效开始</div>
+          <input class="modal-input" id="modalStart" value="2026-07-01" />
+          <div class="label">生效结束</div>
+          <input class="modal-input" id="modalEnd" value="2026-07-31" />
           <div class="label">主归属</div>
-          <div class="field"><strong>是</strong><span class="picker-btn">⌄</span></div>
+          <select class="modal-select" id="modalPrimary">
+            <option>是</option>
+            <option>否</option>
+          </select>
+          <div class="label">更新人员</div>
+          <input class="modal-input" id="modalUpdater" value="系统管理员" />
+          <div class="full-row">
+            <div class="label">备注说明</div>
+            <textarea class="modal-textarea" id="modalRemark">团队管理口径</textarea>
+          </div>
         </div>
-        <div class="drawer-note" id="modalNote">此处为高保真交互示意，可继续扩展为新增/编辑分配弹窗、轮动明细弹窗、批量导入弹窗等。</div>
+        <div class="drawer-note" id="modalNote">此处为可编辑高保真交互示意，不同操作将带出不同的默认内容。</div>
       </div>
       <div class="modal-footer">
         <div class="btn ghost-gray clickable" id="modalCancel">取消</div>
@@ -820,6 +930,14 @@
     const modalName = document.getElementById('modalName');
     const modalRole = document.getElementById('modalRole');
     const modalGroup = document.getElementById('modalGroup');
+    const modalMode = document.getElementById('modalMode');
+    const modalRatio = document.getElementById('modalRatio');
+    const modalTarget = document.getElementById('modalTarget');
+    const modalStart = document.getElementById('modalStart');
+    const modalEnd = document.getElementById('modalEnd');
+    const modalPrimary = document.getElementById('modalPrimary');
+    const modalUpdater = document.getElementById('modalUpdater');
+    const modalRemark = document.getElementById('modalRemark');
     const modalNote = document.getElementById('modalNote');
 
     function showToast(message) {
@@ -831,9 +949,6 @@
 
     function openModal(type, name, role, group) {
       modalMask.classList.add('show');
-      modalName.textContent = name || '未选择';
-      modalRole.textContent = role || '未设置';
-      modalGroup.textContent = group || '未设置';
       const titles = {
         add: '新增指标分配',
         edit: '编辑指标分配',
@@ -846,7 +961,6 @@
         disable: '批量失效',
         unbind: '解除人员归属'
       };
-      modalTitle.textContent = titles[type] || '交互示意';
       const notes = {
         add: '用于新增门店/店面/柜组到个人的分配记录，支持主归属、轮动、多柜组分摊。',
         edit: '用于调整个人销售指标、分配比例和生效周期。',
@@ -859,7 +973,38 @@
         disable: '用于批量失效选中记录，保留历史追溯。',
         unbind: '用于解除人员与柜组的当前归属关系。'
       };
+      const presets = {
+        add: { mode: '按金额', ratio: '100%', target: '0', remark: '新增分配记录，请补充指标值与归属说明。', updater: '系统管理员' },
+        edit: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为编辑模式，可直接修改并保存。', updater: '系统管理员' },
+        detail: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为只读明细示意，可查看历史口径和关联关系。', updater: '系统自动' },
+        rotation: { mode: '按比例', ratio: '50%', target: '46000', remark: '轮动安排：前后半月轮岗，主归属可切换。', updater: '翟金侠' },
+        rule: { mode: '按金额', ratio: '100%', target: '0', remark: '收银岗位规则：件数/笔数单独统计，不直接分摊销售额。', updater: '张盼' },
+        import: { mode: '按金额', ratio: '100%', target: '0', remark: '请上传模板文件并映射字段。', updater: '系统管理员' },
+        share: { mode: '按比例', ratio: '50%', target: '0', remark: '按柜组目标自动分摊到个人，并校验比例合计 100%。', updater: '系统管理员' },
+        copy: { mode: '按金额', ratio: '100%', target: '0', remark: '已复制上月配置，可按本月实际调整。', updater: '系统管理员' },
+        disable: { mode: '按金额', ratio: '100%', target: '0', remark: '批量失效后保留历史记录，不参与当前期间统计。', updater: '系统管理员' },
+        unbind: { mode: '按金额', ratio: '100%', target: '58000', remark: '解除归属后，该员工将不再挂接当前柜组。', updater: '翟金侠' }
+      };
+      const preset = presets[type] || presets.edit;
+      modalTitle.textContent = titles[type] || '交互示意';
+      modalName.value = name || '未选择';
+      modalRole.value = role || '员工';
+      modalGroup.value = group || '未设置';
+      modalMode.value = preset.mode;
+      modalRatio.value = preset.ratio;
+      modalTarget.value = preset.target;
+      modalStart.value = '2026-07-01';
+      modalEnd.value = '2026-07-31';
+      modalPrimary.value = type === 'rotation' || type === 'unbind' ? '否' : '是';
+      modalUpdater.value = preset.updater;
+      modalRemark.value = preset.remark;
       modalNote.textContent = notes[type] || '此处为高保真交互示意。';
+      const readonly = type === 'detail';
+      [modalName, modalRole, modalGroup, modalMode, modalRatio, modalTarget, modalStart, modalEnd, modalPrimary, modalUpdater, modalRemark].forEach(node => {
+        node.disabled = readonly;
+        node.style.background = readonly ? '#f5f7fa' : '#fff';
+      });
+      document.getElementById('modalSubmit').style.display = readonly ? 'none' : 'inline-flex';
     }
 
     function closeModal() {
