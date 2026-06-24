@@ -699,12 +699,24 @@
                 </div>
               </div>
             </div>
+            <div class="form-item">
+              <div class="label">规则功能点</div>
+              <div class="field clickable" data-dropdown="scenario"><strong>全部功能点</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">全部功能点</div>
+                  <div class="dropdown-item">主归属汇总</div>
+                  <div class="dropdown-item">跨柜组分摊</div>
+                  <div class="dropdown-item">多店轮动</div>
+                  <div class="dropdown-item">收银规则</div>
+                </div>
+              </div>
+            </div>
             <div class="actions">
               <div class="btn primary clickable" data-action="search">查询</div>
               <div class="btn default clickable" data-action="reset">重置</div>
             </div>
           </div>
-          <div class="tip">字段说明已收口到表头与筛选项旁的 <strong>?</strong> 气泡，便于按需查看字段作用及联动关系。</div>
+          <div class="tip">字段说明已收口到表头与筛选项旁的 <strong>?</strong> 气泡；备注中的业务规则将通过下方可见字段和交互联动直接体现。</div>
         </div>
 
         <div class="toolbar">
@@ -737,10 +749,11 @@
               <col style="width:116px">
               <col style="width:120px">
               <col style="width:120px">
-              <col style="width:96px">
               <col style="width:130px">
+              <col style="width:96px">
               <col style="width:120px">
               <col style="width:160px">
+              <col style="width:180px">
               <col style="width:220px">
               <col style="width:260px">
             </colgroup>
@@ -760,10 +773,11 @@
                 <th>分配比例</th>
                 <th>目标销售额（元）</th>
                 <th>生效时间</th>
-                <th>启用</th>
                 <th>上级管理人</th>
+                <th>启用</th>
                 <th>更新人员</th>
                 <th>更新时间</th>
+                <th>规则功能点</th>
                 <th>备注说明</th>
                 <th>操作</th>
               </tr>
@@ -784,10 +798,11 @@
                 <td>100%</td>
                 <td>320,000</td>
                 <td>2026-07-01<br>2026-07-31</td>
-                <td><div class="switch on"></div></td>
                 <td>李晓楠</td>
+                <td><div class="switch on"></div></td>
                 <td>系统管理员</td>
                 <td>2026-06-24 19:55</td>
+                <td>主归属汇总</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="张莉莉" data-role="总店长" data-group="72222201">团队管理口径</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="张莉莉" data-role="总店长" data-group="72222201">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="张莉莉" data-role="总店长" data-group="72222201">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="张莉莉" data-role="总店长" data-group="72222201">解绑</a></td>
               </tr>
@@ -806,10 +821,11 @@
                 <td>60%</td>
                 <td>186,000</td>
                 <td>2026-07-01<br>2026-07-31</td>
+                <td>张莉莉</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td>张莉莉</td>
                 <td>2026-06-24 20:02</td>
+                <td>跨柜组分摊</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="马大为" data-role="店长" data-group="72221501">与72222301联动分摊</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72221501">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="马大为" data-role="店长" data-group="72221501">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="马大为" data-role="店长" data-group="72221501">解绑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rotation" data-name="马大为" data-role="店长" data-group="72221501">轮动</div></div></div></td>
               </tr>
@@ -828,10 +844,11 @@
                 <td>40%</td>
                 <td>124,000</td>
                 <td>2026-07-01<br>2026-07-31</td>
+                <td>张莉莉</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td>张莉莉</td>
                 <td>2026-06-24 20:03</td>
+                <td>跨柜组分摊</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="马大为" data-role="店长" data-group="72222301">跨柜组销售支持统计</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="马大为" data-role="店长" data-group="72222301">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="马大为" data-role="店长" data-group="72222301">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="马大为" data-role="店长" data-group="72222301">解绑</a></td>
               </tr>
@@ -850,10 +867,11 @@
                 <td>100%</td>
                 <td>58,000</td>
                 <td>2026-07-01<br>2026-07-31</td>
+                <td>翟金侠</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td>翟金侠</td>
                 <td>2026-06-24 20:05</td>
+                <td>主归属汇总</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="宋磊" data-role="员工" data-group="72221901">个人销售指标</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="宋磊" data-role="员工" data-group="72221901">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="宋磊" data-role="员工" data-group="72221901">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="宋磊" data-role="员工" data-group="72221901">解绑</a></td>
               </tr>
@@ -872,10 +890,11 @@
                 <td>50%</td>
                 <td>46,000</td>
                 <td>2026-07-01<br>2026-07-15</td>
+                <td>翟金侠</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td>翟金侠</td>
                 <td>2026-06-24 20:08</td>
+                <td>多店轮动</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="仇方亮" data-role="店助" data-group="72222701">与72223001按半月轮动</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72222701">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72222701">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="仇方亮" data-role="店助" data-group="72222701">解绑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rotation" data-name="仇方亮" data-role="店助" data-group="72222701">轮动</div></div></div></td>
               </tr>
@@ -894,10 +913,11 @@
                 <td>50%</td>
                 <td>46,000</td>
                 <td>2026-07-16<br>2026-07-31</td>
+                <td>翟金侠</td>
                 <td><div class="switch on"></div></td>
                 <td>翟金侠</td>
-                <td>翟金侠</td>
                 <td>2026-06-24 20:12</td>
+                <td>多店轮动</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="仇方亮" data-role="店助" data-group="72223001">主归属切换至后半月</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="仇方亮" data-role="店助" data-group="72223001">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="仇方亮" data-role="店助" data-group="72223001">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="仇方亮" data-role="店助" data-group="72223001">解绑</a></td>
               </tr>
@@ -916,10 +936,11 @@
                 <td>100%</td>
                 <td>215,000</td>
                 <td>2026-07-01<br>2026-07-31</td>
+                <td>张莉莉</td>
                 <td><div class="switch on"></div></td>
                 <td>张莉莉</td>
-                <td>张莉莉</td>
                 <td>2026-06-24 20:15</td>
+                <td>主归属汇总</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="刘丽娜" data-role="店长" data-group="72225101">入境综合按品类分工</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="刘丽娜" data-role="店长" data-group="72225101">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="刘丽娜" data-role="店长" data-group="72225101">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="刘丽娜" data-role="店长" data-group="72225101">解绑</a></td>
               </tr>
@@ -938,10 +959,11 @@
                 <td>100%</td>
                 <td>0</td>
                 <td>2026-07-01<br>2026-07-31</td>
+                <td>张盼</td>
                 <td><div class="switch on"></div></td>
                 <td>张盼</td>
-                <td>张盼</td>
                 <td>2026-06-24 20:18</td>
+                <td>收银规则</td>
                 <td><a class="remark-link" href="#" data-action="remark" data-name="毛飞" data-role="员工" data-group="72220001">收银件数/笔数另计</a></td>
                 <td><a class="primary-action" href="#" data-action="edit" data-name="毛飞" data-role="员工" data-group="72220001">编辑</a><a class="primary-action" href="#" data-action="detail" data-name="毛飞" data-role="员工" data-group="72220001">明细</a><a class="primary-action" href="#" data-action="unbind" data-name="毛飞" data-role="员工" data-group="72220001">解绑</a><div class="more-wrap"><a class="more-btn" href="#">更多</a><div class="more-menu"><div class="more-item" data-action="rule" data-name="毛飞" data-role="员工" data-group="72220001">规则</div></div></div></td>
               </tr>
@@ -1063,7 +1085,7 @@
         add: '用于新增门店/店面/柜组到个人的分配记录，支持主归属、轮动、多柜组分摊。',
         edit: '用于调整个人销售指标、分配比例和生效周期。',
         detail: '用于查看当前人员在本月份下的全部分配口径、历史修改记录与关联柜组。该窗口为只读示例，不提供编辑。',
-        remark: '用于展示该条记录对应的业务功能点、统计口径和与主归属/轮动/分摊的联动关系。',
+        remark: '用于展示该条记录的规则功能点，以及它如何通过主归属、分配比例、生效时间等字段联动影响目标销售额。',
         rotation: '用于展示跨柜组或多店轮动明细，包括前后半月、轮动比例和主归属切换。',
         rule: '用于维护收银件数/笔数等非销售额口径规则。',
         import: '用于上传 Excel 模板并批量导入人员归属和指标分配数据。',
@@ -1076,7 +1098,7 @@
         add: { mode: '按金额', ratio: '100%', target: '0', remark: '新增分配记录，请补充指标值与归属说明。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         edit: { mode: '按金额', ratio: '100%', target: '320000', remark: '当前为编辑模式，可直接修改并保存。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         detail: { mode: '按比例', ratio: '50%', target: '46000', remark: '只读示例：同一人员在 7 月前后半月分别挂接两个柜组，当前记录为后半月主归属；汇总统计计入当前主柜组。', updater: '翟金侠', start: '2026-07-16', end: '2026-07-31', primary: '是' },
-        remark: { mode: '按比例', ratio: '50%', target: '46000', remark: '功能点示例：1. 该员工与 72222701/72223001 存在半月轮动；2. 前半月主归属在 72222701，后半月切换至当前柜组；3. 汇总时仅主归属记录计入个人主统计口径，另一条作为关联支持记录保留。', updater: '翟金侠', start: '2026-07-16', end: '2026-07-31', primary: '是' },
+        remark: { mode: '按比例', ratio: '50%', target: '46000', remark: '规则功能点：多店轮动\n字段联动：主归属=是时，本条记录计入个人目标销售额；分配比例=50%时，仅承接柜组目标的一半；生效时间=7月后半月时，仅影响该时间段汇总。', updater: '翟金侠', start: '2026-07-16', end: '2026-07-31', primary: '是' },
         rotation: { mode: '按比例', ratio: '50%', target: '46000', remark: '轮动安排：前后半月轮岗，主归属可切换。', updater: '翟金侠', start: '2026-07-01', end: '2026-07-15', primary: '否' },
         rule: { mode: '按金额', ratio: '100%', target: '0', remark: '收银岗位规则：件数/笔数单独统计，不直接分摊销售额。', updater: '张盼', start: '2026-07-01', end: '2026-07-31', primary: '是' },
         import: { mode: '按金额', ratio: '100%', target: '0', remark: '请上传模板文件并映射字段。', updater: '系统管理员', start: '2026-07-01', end: '2026-07-31', primary: '是' },
