@@ -60,54 +60,115 @@
     .body {
       padding: 22px 24px 18px;
     }
+    .search-panel {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfcfe;
+      padding: 18px 18px 16px;
+      margin-bottom: 16px;
+    }
     .search-grid {
       display: grid;
-      grid-template-columns: 96px 290px 96px 290px 96px 220px 160px auto;
-      gap: 14px 14px;
-      align-items: center;
-      margin-bottom: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px 18px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+    .form-item {
+      min-width: 0;
     }
     .label {
-      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+      font-size: 14px;
       font-weight: 600;
-      color: #3a4756;
+      color: #2f3b49;
     }
-    .field, .select-like {
+    .required {
+      color: var(--red);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .field {
       height: 40px;
       border: 1px solid var(--line-dark);
       border-radius: 6px;
       background: #fff;
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      color: #b1bac5;
+      padding: 0 40px 0 14px;
+      color: #222;
       font-size: 14px;
       position: relative;
+      width: 100%;
     }
-    .field strong, .select-like strong {
-      color: #5a6776;
+    .field strong,
+    .field span,
+    .field input {
+      color: #222;
       font-weight: 500;
     }
+    .field.placeholder {
+      color: #98a4b3;
+    }
+    .field input {
+      border: 0;
+      outline: 0;
+      width: 100%;
+      font-size: 14px;
+      padding: 0;
+      background: transparent;
+    }
     .picker-btn {
-      width: 58px;
+      width: 34px;
       height: 100%;
       position: absolute;
       top: 0;
       right: 0;
-      border-left: 1px solid var(--line-dark);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #7c8a99;
-      font-size: 16px;
-      background: #f8fafc;
+      font-size: 14px;
+      background: transparent;
       border-top-right-radius: 6px;
       border-bottom-right-radius: 6px;
     }
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid var(--line-dark);
+      border-radius: 8px;
+      box-shadow: 0 10px 26px rgba(15, 34, 58, 0.12);
+      padding: 6px 0;
+      display: none;
+      z-index: 8;
+    }
+    .dropdown.show {
+      display: block;
+    }
+    .dropdown-item {
+      padding: 9px 14px;
+      font-size: 14px;
+      color: #222;
+      background: #fff;
+    }
+    .dropdown-item:hover,
+    .dropdown-item.active {
+      background: #f2f7ff;
+      color: var(--blue);
+    }
     .actions {
       display: flex;
-      gap: 12px;
-      justify-content: flex-start;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-top: 30px;
     }
     .btn {
       min-width: 96px;
@@ -120,34 +181,40 @@
       gap: 6px;
       font-size: 14px;
       font-weight: 500;
+      background: #fff;
+      color: #222;
     }
     .btn.primary { background: var(--blue); color: #fff; }
-    .btn.default { background: var(--blue); color: #fff; }
+    .btn.default { border-color: var(--line-dark); color: #222; }
     .toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 10px 0 14px;
+      margin: 0 0 14px;
+      gap: 16px;
     }
-    .left-actions { display: flex; gap: 12px; }
+    .left-actions { display: flex; gap: 10px; flex-wrap: wrap; }
     .btn.ghost-blue {
       border-color: #91caff;
       background: #fff;
-      color: var(--blue);
+      color: #222;
     }
     .btn.ghost-red {
       border-color: #ffccc7;
-      background: var(--red-weak);
-      color: #ff7875;
+      background: #fff;
+      color: #222;
     }
     .btn.ghost-gray {
       border-color: var(--line-dark);
       background: #fff;
-      color: #607080;
+      color: #222;
     }
     .tip {
       font-size: 13px;
       color: #8a97a6;
+    }
+    .tip.required-tip {
+      color: #d4380d;
     }
     .table-wrap {
       border: 1px solid var(--line-dark);
@@ -177,7 +244,7 @@
       border-bottom: 1px solid var(--line);
       text-align: center;
       font-size: 14px;
-      color: #445161;
+      color: #222;
       padding: 8px 10px;
       line-height: 1.5;
       vertical-align: middle;
@@ -226,11 +293,11 @@
       font-size: 12px;
       font-weight: 600;
     }
-    .badge.yellow { background: #fff7e6; color: #d48806; }
-    .badge.green { background: #f6ffed; color: #389e0d; }
-    .badge.blue { background: #e6f4ff; color: #1677ff; }
-    .badge.purple { background: #f9f0ff; color: #722ed1; }
-    .badge.gray { background: #f3f5f7; color: #637381; }
+    .badge.yellow { background: #fff7e6; color: #222; }
+    .badge.green { background: #f6ffed; color: #222; }
+    .badge.blue { background: #e6f4ff; color: #222; }
+    .badge.purple { background: #f9f0ff; color: #222; }
+    .badge.gray { background: #f3f5f7; color: #222; }
     .link {
       color: var(--blue);
       text-decoration: none;
@@ -401,26 +468,85 @@
         <div class="close">×</div>
       </div>
       <div class="body">
-        <div class="search-grid">
-          <div class="label">期间</div>
-          <div class="field"><strong>2026-07</strong><span class="picker-btn">📅</span></div>
-          <div class="label">门店</div>
-          <div class="field"><strong>首都T3门店7222</strong><span class="picker-btn">···</span></div>
-          <div class="label">团队</div>
-          <div class="field"><strong>全部团队</strong><span class="picker-btn">⌄</span></div>
-          <div class="actions">
-            <div class="btn primary clickable" data-action="search">🔍 查询</div>
-            <div class="btn default clickable" data-action="reset">↻ 重置</div>
+        <div class="search-panel">
+          <div class="search-grid">
+            <div class="form-item">
+              <div class="label"><span class="required">*</span>期间</div>
+              <div class="field clickable" data-dropdown="period"><strong>2026-07</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">2026-07</div>
+                  <div class="dropdown-item">2026-08</div>
+                  <div class="dropdown-item">2026-09</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label"><span class="required">*</span>门店</div>
+              <div class="field clickable" data-dropdown="store"><strong>首都T3门店7222</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">首都T3门店7222</div>
+                  <div class="dropdown-item">首都T2门店7118</div>
+                  <div class="dropdown-item">大兴门店7331</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label">团队</div>
+              <div class="field clickable" data-dropdown="team"><strong>T3香化</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item">全部团队</div>
+                  <div class="dropdown-item active">T3香化</div>
+                  <div class="dropdown-item">T3烟酒</div>
+                  <div class="dropdown-item">T3精品综合</div>
+                  <div class="dropdown-item">T3入境</div>
+                  <div class="dropdown-item">T3收银</div>
+                </div>
+              </div>
+            </div>
+            <div class="actions">
+              <div class="btn primary clickable" data-action="search">查询</div>
+              <div class="btn default clickable" data-action="reset">重置</div>
+            </div>
+            <div class="form-item">
+              <div class="label">店面</div>
+              <div class="field clickable" data-dropdown="shop"><strong>全部店面</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">全部店面</div>
+                  <div class="dropdown-item">T3香化</div>
+                  <div class="dropdown-item">T3烟酒</div>
+                  <div class="dropdown-item">T3精品综合</div>
+                  <div class="dropdown-item">T3入境</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label">柜组</div>
+              <div class="field clickable" data-dropdown="counter"><strong>全部柜组</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">全部柜组</div>
+                  <div class="dropdown-item">72222201</div>
+                  <div class="dropdown-item">72221501</div>
+                  <div class="dropdown-item">72222301</div>
+                  <div class="dropdown-item">72225101</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="label">姓名/工号</div>
+              <div class="field placeholder"><input value="" placeholder="请输入姓名或工号" /></div>
+            </div>
+            <div class="form-item">
+              <div class="label">工作模式</div>
+              <div class="field clickable" data-dropdown="mode"><strong>全部</strong><span class="picker-btn">⌄</span>
+                <div class="dropdown">
+                  <div class="dropdown-item active">全部</div>
+                  <div class="dropdown-item">固定</div>
+                  <div class="dropdown-item">跨柜组</div>
+                  <div class="dropdown-item">多店轮动</div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="label">店面</div>
-          <div class="field"><strong>全部店面</strong><span class="picker-btn">···</span></div>
-          <div class="label">柜组</div>
-          <div class="field"><strong>全部柜组</strong><span class="picker-btn">···</span></div>
-          <div class="label">姓名/工号</div>
-          <div class="field">请输入姓名或工号</div>
-          <div class="label">工作模式</div>
-          <div class="field"><strong>全部</strong><span class="picker-btn">⌄</span></div>
         </div>
 
         <div class="toolbar">
@@ -431,7 +557,7 @@
             <div class="btn ghost-gray clickable" data-action="share">批量分摊</div>
             <div class="btn ghost-red clickable" data-action="disable">批量失效</div>
           </div>
-          <div class="tip">红色字段为必填项；同一柜组同口径分配比例合计需为 100%</div>
+          <div class="tip required-tip">带 * 的红色字段为必填项；同一柜组同口径分配比例合计需为 100%</div>
         </div>
 
         <div class="section-title">分配明细</div>
@@ -740,12 +866,51 @@
       modalMask.classList.remove('show');
     }
 
+    const fieldDefaults = new Map();
+    const dropdownFields = document.querySelectorAll('.field[data-dropdown]');
+    const keywordInput = document.querySelector('.field input');
+
+    function closeDropdowns() {
+      document.querySelectorAll('.dropdown.show').forEach(dropdown => dropdown.classList.remove('show'));
+    }
+
     document.querySelectorAll('.field').forEach(field => {
       field.classList.add('clickable');
-      field.addEventListener('click', () => {
+      const strong = field.querySelector('strong');
+      if (strong && field.dataset.dropdown) {
+        fieldDefaults.set(field.dataset.dropdown, strong.textContent.trim());
+      }
+      field.addEventListener('click', event => {
+        if (event.target.closest('.dropdown-item')) return;
         document.querySelectorAll('.field.active').forEach(item => item.classList.remove('active'));
         field.classList.add('active');
+        const dropdown = field.querySelector('.dropdown');
+        if (dropdown) {
+          const willOpen = !dropdown.classList.contains('show');
+          closeDropdowns();
+          if (willOpen) dropdown.classList.add('show');
+        } else {
+          closeDropdowns();
+        }
       });
+    });
+
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', event => {
+        event.stopPropagation();
+        const dropdown = item.closest('.dropdown');
+        const field = item.closest('.field');
+        dropdown.querySelectorAll('.dropdown-item').forEach(node => node.classList.remove('active'));
+        item.classList.add('active');
+        const valueNode = field.querySelector('strong');
+        if (valueNode) valueNode.textContent = item.textContent.trim();
+        closeDropdowns();
+        showToast(`已选择：${item.textContent.trim()}`);
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.field')) closeDropdowns();
     });
 
     document.querySelectorAll('.btn.clickable').forEach(btn => {
@@ -754,8 +919,19 @@
         if (['add', 'import', 'copy', 'share', 'disable'].includes(action)) {
           openModal(action, '当前筛选结果', '批量操作', '多柜组');
         } else if (action === 'search') {
+          closeDropdowns();
           showToast('已按当前条件刷新分配明细。');
         } else if (action === 'reset') {
+          closeDropdowns();
+          dropdownFields.forEach(field => {
+            const key = field.dataset.dropdown;
+            const strong = field.querySelector('strong');
+            if (strong && fieldDefaults.has(key)) strong.textContent = fieldDefaults.get(key);
+            field.querySelectorAll('.dropdown-item').forEach((node, index) => {
+              node.classList.toggle('active', node.textContent.trim() === fieldDefaults.get(key) || (!fieldDefaults.get(key) && index === 0));
+            });
+          });
+          if (keywordInput) keywordInput.value = '';
           showToast('查询条件已重置为默认值。');
         }
       });
