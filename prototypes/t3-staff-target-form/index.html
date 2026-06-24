@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T3员工销售指标分配填报表</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --line: #e7edf3;
+      --line-dark: #d6e0ea;
+      --text: #243243;
+      --sub: #607080;
+      --blue: #1677ff;
+      --blue-weak: #ecf5ff;
+      --red: #ff4d4f;
+      --red-weak: #fff1f0;
+      --green: #52c41a;
+      --shadow: 0 8px 30px rgba(15, 34, 58, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+    }
+    .page {
+      padding: 28px;
+    }
+    .shell {
+      min-width: 1480px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .header {
+      height: 74px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #fff, #fcfdff);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .header .close {
+      font-size: 32px;
+      color: #8a97a6;
+      line-height: 1;
+    }
+    .body {
+      padding: 22px 24px 18px;
+    }
+    .search-grid {
+      display: grid;
+      grid-template-columns: 96px 290px 96px 290px 96px 220px 160px auto;
+      gap: 14px 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #3a4756;
+    }
+    .field, .select-like {
+      height: 40px;
+      border: 1px solid var(--line-dark);
+      border-radius: 6px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: #b1bac5;
+      font-size: 14px;
+      position: relative;
+    }
+    .field strong, .select-like strong {
+      color: #5a6776;
+      font-weight: 500;
+    }
+    .picker-btn {
+      width: 58px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-left: 1px solid var(--line-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7c8a99;
+      font-size: 16px;
+      background: #f8fafc;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-start;
+    }
+    .btn {
+      min-width: 96px;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .btn.primary { background: var(--blue); color: #fff; }
+    .btn.default { background: var(--blue); color: #fff; }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0 14px;
+    }
+    .left-actions { display: flex; gap: 12px; }
+    .btn.ghost-blue {
+      border-color: #91caff;
+      background: #fff;
+      color: var(--blue);
+    }
+    .btn.ghost-red {
+      border-color: #ffccc7;
+      background: var(--red-weak);
+      color: #ff7875;
+    }
+    .btn.ghost-gray {
+      border-color: var(--line-dark);
+      background: #fff;
+      color: #607080;
+    }
+    .tip {
+      font-size: 13px;
+      color: #8a97a6;
+    }
+    .table-wrap {
+      border: 1px solid var(--line-dark);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    thead th {
+      background: #f7f9fc;
+      color: #4a5665;
+      font-size: 14px;
+      font-weight: 700;
+      height: 52px;
+      border-right: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+      text-align: center;
+      padding: 0 8px;
+    }
+    tbody td {
+      height: 62px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      font-size: 14px;
+      color: #445161;
+      padding: 8px 10px;
+      line-height: 1.5;
+      vertical-align: middle;
+      background: #fff;
+    }
+    tbody tr:nth-child(even) td {
+      background: #fcfdff;
+    }
+    .checkbox, .checkbox-h {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #c7d1db;
+      border-radius: 3px;
+      display: inline-block;
+      background: #fff;
+    }
+    .switch {
+      width: 54px;
+      height: 28px;
+      border-radius: 999px;
+      background: #dbe6f2;
+      margin: 0 auto;
+      position: relative;
+    }
+    .switch.on { background: var(--blue); }
+    .switch::after {
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    }
+    .switch.on::after { left: 28px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 66px;
+      height: 28px;
+      border-radius: 999px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge.yellow { background: #fff7e6; color: #d48806; }
+    .badge.green { background: #f6ffed; color: #389e0d; }
+    .badge.blue { background: #e6f4ff; color: #1677ff; }
+    .badge.purple { background: #f9f0ff; color: #722ed1; }
+    .badge.gray { background: #f3f5f7; color: #637381; }
+    .link {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 6px;
+      white-space: nowrap;
+    }
+    .muted { color: #8a97a6; }
+    .multi-line { white-space: pre-line; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 16px;
+    }
+    .summary-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fafcff 100%);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .summary-card .k {
+      color: #7b8794;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .summary-card .v {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1f2d3d;
+    }
+    .summary-card .s {
+      margin-top: 6px;
+      color: #8a97a6;
+      font-size: 12px;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 4px 0;
+      color: #5f6e7c;
+      font-size: 14px;
+    }
+    .pager {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-size, .page-input {
+      height: 32px;
+      border: 1px solid var(--line-dark);
+      border-radius: 6px;
+      background: #fff;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      color: #4a5665;
+    }
+    .nav-btn, .current {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line-dark);
+      background: #fff;
+      color: #8a97a6;
+    }
+    .current {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+      font-weight: 600;
+    }
+    .section-title {
+      margin: 4px 0 12px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #2f3b49;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <div class="header">
+        <h1>员工销售指标分配填报表</h1>
+        <div class="close">×</div>
+      </div>
+      <div class="body">
+        <div class="search-grid">
+          <div class="label">期间</div>
+          <div class="field"><strong>2026-07</strong><span class="picker-btn">📅</span></div>
+          <div class="label">门店</div>
+          <div class="field"><strong>首都T3门店7222</strong><span class="picker-btn">···</span></div>
+          <div class="label">团队</div>
+          <div class="field"><strong>全部团队</strong><span class="picker-btn">⌄</span></div>
+          <div class="actions">
+            <div class="btn primary">🔍 查询</div>
+            <div class="btn default">↻ 重置</div>
+          </div>
+
+          <div class="label">店面</div>
+          <div class="field"><strong>全部店面</strong><span class="picker-btn">···</span></div>
+          <div class="label">柜组</div>
+          <div class="field"><strong>全部柜组</strong><span class="picker-btn">···</span></div>
+          <div class="label">姓名/工号</div>
+          <div class="field">请输入姓名或工号</div>
+          <div class="label">工作模式</div>
+          <div class="field"><strong>全部</strong><span class="picker-btn">⌄</span></div>
+        </div>
+
+        <div class="summary">
+          <div class="summary-card">
+            <div class="k">本期分配人数</div>
+            <div class="v">138</div>
+            <div class="s">含管理岗与员工个人指标</div>
+          </div>
+          <div class="summary-card">
+            <div class="k">跨柜组人员</div>
+            <div class="v">19</div>
+            <div class="s">涉及香化、烟酒、精品综合</div>
+          </div>
+          <div class="summary-card">
+            <div class="k">多店轮动人员</div>
+            <div class="v">12</div>
+            <div class="s">按月生效，支持主归属标识</div>
+          </div>
+          <div class="summary-card">
+            <div class="k">本期指标总额</div>
+            <div class="v">¥8,620,000</div>
+            <div class="s">柜组与个人分配口径一致</div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="left-actions">
+            <div class="btn ghost-blue">添加分配</div>
+            <div class="btn ghost-blue">批量导入</div>
+            <div class="btn ghost-blue">复制上月</div>
+            <div class="btn ghost-gray">批量分摊</div>
+            <div class="btn ghost-red">批量失效</div>
+          </div>
+          <div class="tip">红色字段为必填项；同一柜组同口径分配比例合计需为 100%</div>
+        </div>
+
+        <div class="section-title">分配明细</div>
+        <div class="table-wrap">
+          <table>
+            <colgroup>
+              <col style="width:56px">
+              <col style="width:96px">
+              <col style="width:150px">
+              <col style="width:110px">
+              <col style="width:120px">
+              <col style="width:120px">
+              <col style="width:90px">
+              <col style="width:110px">
+              <col style="width:96px">
+              <col style="width:110px">
+              <col style="width:110px">
+              <col style="width:116px">
+              <col style="width:120px">
+              <col style="width:120px">
+              <col style="width:96px">
+              <col style="width:130px">
+              <col style="width:250px">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><span class="checkbox-h"></span></th>
+                <th>期间</th>
+                <th>门店</th>
+                <th>店面</th>
+                <th>柜组</th>
+                <th>姓名</th>
+                <th>工号</th>
+                <th>岗位类型</th>
+                <th>主归属</th>
+                <th>工作模式</th>
+                <th>分配方式</th>
+                <th>分配比例</th>
+                <th>指标值(元)</th>
+                <th>生效时间</th>
+                <th>启用</th>
+                <th>上级管理人</th>
+                <th>备注/操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td class="multi-line">首都T3门店7222</td>
+                <td>T3香化</td>
+                <td>72222201</td>
+                <td>张莉莉</td>
+                <td>15001001547</td>
+                <td><span class="badge yellow">总店长</span></td>
+                <td>是</td>
+                <td><span class="badge gray">固定</span></td>
+                <td>按金额</td>
+                <td>100%</td>
+                <td>320,000</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>李晓楠</td>
+                <td class="multi-line">团队管理口径<br><a class="link" href="#">编辑</a><a class="link" href="#">明细</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3烟酒</td>
+                <td>72221501</td>
+                <td>马大为</td>
+                <td>15001000679</td>
+                <td><span class="badge green">店长</span></td>
+                <td>是</td>
+                <td><span class="badge blue">跨柜组</span></td>
+                <td>按比例</td>
+                <td>60%</td>
+                <td>186,000</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>张莉莉</td>
+                <td class="multi-line">与72222301联动分摊<br><a class="link" href="#">编辑</a><a class="link" href="#">轮动</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3烟酒</td>
+                <td>72222301</td>
+                <td>马大为</td>
+                <td>15001000679</td>
+                <td><span class="badge green">店长</span></td>
+                <td>否</td>
+                <td><span class="badge blue">跨柜组</span></td>
+                <td>按比例</td>
+                <td>40%</td>
+                <td>124,000</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>张莉莉</td>
+                <td class="multi-line">跨柜组销售支持统计<br><a class="link" href="#">编辑</a><a class="link" href="#">明细</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3精品综合</td>
+                <td>72221901</td>
+                <td>宋磊</td>
+                <td>15001001424</td>
+                <td><span class="badge purple">员工</span></td>
+                <td>是</td>
+                <td><span class="badge gray">固定</span></td>
+                <td>按金额</td>
+                <td>100%</td>
+                <td>58,000</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>翟金侠</td>
+                <td class="multi-line">个人销售指标<br><a class="link" href="#">编辑</a><a class="link" href="#">解绑</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3精品综合</td>
+                <td>72222701</td>
+                <td>仇方亮</td>
+                <td>15801093857</td>
+                <td><span class="badge blue">店助</span></td>
+                <td>否</td>
+                <td><span class="badge purple">多店轮动</span></td>
+                <td>按比例</td>
+                <td>50%</td>
+                <td>46,000</td>
+                <td>2026-07-01<br>2026-07-15</td>
+                <td><div class="switch on"></div></td>
+                <td>翟金侠</td>
+                <td class="multi-line">与72223001按半月轮动<br><a class="link" href="#">编辑</a><a class="link" href="#">轮动</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3精品综合</td>
+                <td>72223001</td>
+                <td>仇方亮</td>
+                <td>15801093857</td>
+                <td><span class="badge blue">店助</span></td>
+                <td>是</td>
+                <td><span class="badge purple">多店轮动</span></td>
+                <td>按比例</td>
+                <td>50%</td>
+                <td>46,000</td>
+                <td>2026-07-16<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>翟金侠</td>
+                <td class="multi-line">主归属切换至后半月<br><a class="link" href="#">编辑</a><a class="link" href="#">明细</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3入境</td>
+                <td>72225101</td>
+                <td>刘丽娜</td>
+                <td>15001001794</td>
+                <td><span class="badge green">店长</span></td>
+                <td>是</td>
+                <td><span class="badge gray">固定</span></td>
+                <td>按金额</td>
+                <td>100%</td>
+                <td>215,000</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>张莉莉</td>
+                <td class="multi-line">入境综合按品类分工<br><a class="link" href="#">编辑</a><a class="link" href="#">明细</a></td>
+              </tr>
+              <tr>
+                <td><span class="checkbox"></span></td>
+                <td>2026-07</td>
+                <td>首都T3门店7222</td>
+                <td>T3收银</td>
+                <td>72220001</td>
+                <td>毛飞</td>
+                <td>15001002001</td>
+                <td><span class="badge purple">员工</span></td>
+                <td>是</td>
+                <td><span class="badge blue">跨柜组</span></td>
+                <td>按金额</td>
+                <td>100%</td>
+                <td>0</td>
+                <td>2026-07-01<br>2026-07-31</td>
+                <td><div class="switch on"></div></td>
+                <td>张盼</td>
+                <td class="multi-line">收银件数/笔数另计<br><a class="link" href="#">编辑</a><a class="link" href="#">规则</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footer">
+          <div>共 138 条</div>
+          <div class="pager">
+            <div class="page-size">30条/页 ⌄</div>
+            <div class="nav-btn">‹</div>
+            <div class="current">1</div>
+            <div class="nav-btn">›</div>
+            <div>前往</div>
+            <div class="page-input">1</div>
+            <div>页</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
